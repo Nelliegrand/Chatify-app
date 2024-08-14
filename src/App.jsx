@@ -1,35 +1,47 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import backgroundImage from "./pics/face2face.jpg"
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Register from './comps/Register'
+import Login from './comps/Login'
+import './index.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+function Home() {
+  return (
+    <div
+      className="hero min-h-screen"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+      }}>
+      <div className="hero-overlay bg-opacity-60"></div>
+      <div className="hero-content text-neutral-content text-center">
+        <div className="max-w-md">
+          <h1 className="mb-5 text-5xl font-bold">Börja chatta!</h1>
+          <p className="mb-5">
+            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
+            quasi. In deleniti eaque aut repudiandae et a id nisi.
+          </p>
+          <Link to="/login">
+            <button className="btn btn-primary">Logga in</button>
+          </Link>
+          <Link to="/register">
+            <button className="btn btn-secondary">Registrera</button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
