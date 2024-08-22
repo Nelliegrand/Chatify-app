@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Sidenav from "./SideNav";
 
 function Chat() {
 
@@ -21,6 +22,7 @@ function Chat() {
 
     return (
         <div>
+            <Sidenav />
             <header>
                 {/* Visa användarnamn och avatar om användaren är inloggad */}
                 {user ? (

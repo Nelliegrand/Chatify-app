@@ -1,3 +1,64 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%;
+    /* 100% höjd */
+    width: 0;
+    /* Initialt bredd noll */
+    position: fixed;
+    /* Fixerat */
+    z-index: 1;
+    /* Sätt den över andra element */
+    top: 0;
+    left: 0;
+    background-color: #111;
+    /* Bakgrundsfärg */
+    overflow-x: hidden;
+    /* Dölj horisontell scroll */
+    transition: 0.5s;
+    /* Övergångseffekt */
+    padding-top: 60px;
+    /* Placera länkarna 60px från toppen */
+}
+
+/* Sidenav länk stilar */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+/* När användaren hovrar över länkarna */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Stängknappen för sidomenyn */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Placera "Öppna meny" knappen på sidan */
+span {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* Stilar för huvudinnehållet */
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}

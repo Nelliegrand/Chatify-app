@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Register from './comps/Register'
 import Login from './comps/Login'
 import Chat from './comps/Chat';
+import Sidenav from './comps/SideNav';
 import './index.css'
 
 function App() {
