@@ -50,7 +50,7 @@ function Register() {
             <div>
                 <h1>Registrera nytt konto</h1>
                 {error && <p style={{ color: "red" }}>{error}</p>}
-                {success && <p style={{ color: "green" }}>{success}</p>} {/* Visa framgångsmeddelande */}
+                {success && <p style={{ color: "green" }}>{success}</p>} {/* Visa att registrering lyckades*/}
                 <h2>Välj en Avatar</h2>
                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                     {avatars.map((url, index) => (

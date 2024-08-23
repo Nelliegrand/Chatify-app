@@ -4,19 +4,11 @@ import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Login() {
+function Login({ onLogin }) {  // Ta emot onLogin som en prop
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-
-    // useEffect(() => {
-    //     // Om användaren redan är inloggad, omdirigera till chat-sidan
-    //     const token = localStorage.getItem('token');
-    //     if (token) {
-    //         navigate("/chat");
-    //     }
-    // }, [navigate]);
 
     const handleLogin = async () => {
         try {
@@ -31,27 +23,25 @@ function Login() {
             if (response.status === 200) {
                 const token = response.data.token;
 
-                // Kontrollera att vi får en JWT tillbaka
                 if (token) {
-                    // Spara token i localStorage
                     localStorage.setItem('token', token);
                     const decodedJwt = JSON.parse(atob(token.split('.')[1]));
                     localStorage.setItem('user', JSON.stringify(decodedJwt));
 
                     console.log("User data saved to localStorage:", JSON.stringify(decodedJwt));
 
-                    // Omdirigera till chat-sidan
+                    onLogin();
                     navigate("/chat");
                 } else {
                     setError("Användardata saknas");
                 }
-
             }
         } catch (error) {
             console.error("Login error:", error);
             setError("Felaktigt användarnamn eller lösenord");
         }
     };
+
     return (
         <>
             <Header />
@@ -102,5 +92,6 @@ function Login() {
 };
 
 export default Login;
+
 
 

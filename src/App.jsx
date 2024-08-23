@@ -1,24 +1,48 @@
-import { useState } from 'react'
-import backgroundImage from "./pics/face2face.jpg"
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Register from './comps/Register';
+import Login from './comps/Login';
+import Chat from './comps/Chat';
+import ProtectedRoute from './comps/ProtectedRoute';
+import './index.css';
+import backgroundImage from "./pics/face2face.jpg";
 import Header from './comps/Header';
 import Footer from './comps/Footer';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Register from './comps/Register'
-import Login from './comps/Login'
-import Chat from './comps/Chat';
-import Sidenav from './comps/SideNav';
-import './index.css'
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Här kan du lägga till en ytterligare kontroll för att verifiera token om det behövs
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleLogin = () => setIsAuthenticated(true);
+
+  /*  const handleLogout = () => {
+     localStorage.removeItem('token');
+     setIsAuthenticated(false);
+   }; */
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route
+          path="/chat"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Chat />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-    </Router >
+    </Router>
   );
 }
 

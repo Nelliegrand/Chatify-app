@@ -19,7 +19,7 @@ function Sidenav() {
     return (
         <>
             <div id="mySidenav" className="sidenav">
-                <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>
+                <a href="#" className="closebtn" onClick={(e) => { e.preventDefault(); closeNav(); }}>&times;</a>
                 <a href="/profile">Profil</a>
                 <a href="/login">Logga ut</a>
 
