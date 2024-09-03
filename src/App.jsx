@@ -9,23 +9,19 @@ import backgroundImage from "./pics/face2face.jpg";
 import Header from './comps/Header';
 import Footer from './comps/Footer';
 
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      // Här kan du lägga till en ytterligare kontroll för att verifiera token om det behövs
+
       setIsAuthenticated(true);
     }
   }, []);
 
   const handleLogin = () => setIsAuthenticated(true);
-
-  /*  const handleLogout = () => {
-     localStorage.removeItem('token');
-     setIsAuthenticated(false);
-   }; */
 
   return (
     <Router>
