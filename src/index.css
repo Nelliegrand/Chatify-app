@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/*Styling för sidenav*/
 .sidenav {
     height: 100%;
     width: 0;
@@ -13,6 +14,7 @@
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+
 }
 
 .sidenav a:hover {
@@ -44,8 +46,10 @@ span {
     left: 25px;
     font-size: 25px;
     cursor: pointer;
+    color: white;
 }
 
+/*Styling för chattsidan*/
 #main {
     transition: margin-left .5s;
     padding: 16px;
@@ -129,4 +133,129 @@ span {
     border-radius: 50%;
     height: 50px;
     width: 50px;
+}
+
+.btn-primary {
+    margin-right: 10px;
+}
+
+.btn-secondary {
+    margin-left: 10px;
+}
+
+/*Styling för registreringssidan*/
+
+.new-reg {
+    font-size: 24px;
+    font-family: orbitron;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.pick-avatar {
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.error-message {
+    color: red;
+    text-align: center;
+}
+
+
+.success-message {
+    color: green;
+    text-align: center;
+}
+
+.avatar-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px
+        /* Centrerar avatarbilderna horisontellt */
+}
+
+.avatar-image {
+    cursor: pointer;
+    margin: 5px;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    transition: border 0.3s ease;
+}
+
+.avatar-image.selected {
+    border: 2px solid rgb(153, 5, 153);
+}
+
+/* Ny CSS för att centrera formulärfälten och knappen */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    /* Centrerar formcontainern och sätter en bredd på 50% av dess föräldraelement */
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+    /* Centrerar innehållet vertikalt */
+    border: solid 2px grey;
+    opacity: 60%;
+    height: 40px;
+    border-radius: 8px;
+    padding-left: 10px;
+    /* Lite utrymme till vänster för ikonen */
+    width: 400px;
+    margin-bottom: 15px;
+}
+
+.input-field svg {
+    margin-right: 10px;
+    /* Utrymme mellan ikonen och texten */
+    height: 20px;
+    /* Justera storleken på ikonen om nödvändigt */
+    width: 20px;
+}
+
+.input-field input {
+    border: none;
+    /* Ta bort inputfältets inbyggda kantlinje */
+    width: 100%;
+    /* Fyll hela bredden av input-fältet */
+    height: 100%;
+    /* Säkerställ att texten tar upp hela höjden av input-fältet */
+    outline: none;
+    /* Ta bort den blå kanten när fältet är aktivt */
+    font-size: 16px;
+    /* Justera storleken på texten */
+    background: transparent;
+    /* Gör bakgrunden transparent så den följer föräldraelementet */
+}
+
+.btn-primary-register-login {
+    width: 200px;
+    /* Sätter bredden på knappen till 65% av formcontainerns bredd */
+    height: 70px;
+    /* Behåller maxbredden på 400px */
+    text-align: center;
+    background-color: rgb(180, 35, 161);
+    color: white;
+    margin: 10px;
+    margin-bottom: 50px;
+    border-radius: 8px;
+}
+
+/*Styling för login*/
+
+.login {
+    font-size: 20px;
+    font-family: orbitron;
+    margin-bottom: 30px;
+    font-weight: bold;
 }

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Sidenav from "./SideNav";
 import axios from "axios";
 import DOMPurify from "dompurify";
+import Header from "./Header";
+import Footer from "./Footer";
 
 //Mina setters
 function Chat() {
@@ -180,63 +182,67 @@ function Chat() {
     };
 
     return (
-        <div>
-            <Sidenav />
-            <div id="main">
-                <header>
-                    {user ? (
-                        <div className="logged-in-user">
-                            <img className="avatar-pic"
-                                src={user.avatar}
-                                alt="Avatar"
-                            />
-                            <h2>Välkommen, {user.user}!</h2>
-                        </div>
-                    ) : (
-                        <h2>Avatar:</h2>
-                    )}
-                </header>
+        <>
+            <Header />
+            <div>
+                <Sidenav />
+                <div id="main">
+                    <header>
+                        {user ? (
+                            <div className="logged-in-user">
+                                <img className="avatar-pic"
+                                    src={user.avatar}
+                                    alt="Avatar"
+                                />
+                                <h2>Välkommen, {user.user}!</h2>
+                            </div>
+                        ) : (
+                            <h2>Avatar:</h2>
+                        )}
+                    </header>
 
-                <div>
-                    {error ? (
-                        <p>{error}</p>
-                    ) : (
-                        <div className="messages">
-                            <h4>Dina meddelanden med [Person]</h4>
-                            {messages.map((message, index) => (
-                                <div
-                                    key={index}
-                                    className={`message-container ${message.userId === user?.id ? "self-end" : "self-start"}`}
-                                >
-                                    <div className="message">
-                                        <p dangerouslySetInnerHTML={{ __html: message.text }} />
-                                    </div>
-                                    {message.userId === user?.id && (
-                                        <div className="delete-button-container">
-                                            <button onClick={() => handleDeleteMessage(message.id)} className="delete-button">Radera</button>
+                    <div>
+                        {error ? (
+                            <p>{error}</p>
+                        ) : (
+                            <div className="messages">
+                                <h4>Dina meddelanden med [Person]</h4>
+                                {messages.map((message, index) => (
+                                    <div
+                                        key={index}
+                                        className={`message-container ${message.userId === user?.id ? "self-end" : "self-start"}`}
+                                    >
+                                        <div className="message">
+                                            <p dangerouslySetInnerHTML={{ __html: message.text }} />
                                         </div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                    )}
+                                        {message.userId === user?.id && (
+                                            <div className="delete-button-container">
+                                                <button onClick={() => handleDeleteMessage(message.id)} className="delete-button">Radera</button>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
-                    <div className="send-message-form">
-                        <input
-                            type="text"
-                            placeholder="Skriv ett meddelande..." //Placeholder
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                        />
-                        <button
-                            onClick={handleSendMessage} //knapp för skicka meddelande
-                        >
-                            Skicka
-                        </button>
+                        <div className="send-message-form">
+                            <input
+                                type="text"
+                                placeholder="Skriv ett meddelande..." //Placeholder
+                                value={text}
+                                onChange={(e) => setText(e.target.value)}
+                            />
+                            <button
+                                onClick={handleSendMessage} //knapp för skicka meddelande
+                            >
+                                Skicka
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <Footer />
+        </>
     );
 }
 
