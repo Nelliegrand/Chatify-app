@@ -3,6 +3,7 @@ import Sidenav from "./SideNav";
 import axios from "axios";
 import DOMPurify from "dompurify";
 
+//Mina setters
 function Chat() {
     const [user, setUser] = useState(null);
     const [messages, setMessages] = useState([]);
@@ -11,11 +12,12 @@ function Chat() {
 
     // Mockade meddelanden 
     const mockMessages = [
-        { text: "Hejsan!", userId: "12345", timestamp: "2023-09-03T10:00:00Z" },
-        { text: "Jag mår bra, hur mår du?", userId: "67890", timestamp: "2023-09-03T10:01:00Z" }
+        { text: "Hejsan!", userId: "12345", createdAt: "2023-09-03T10:00:00Z" },
+        { text: "Hur mår du?", userId: "67890", createdAt: "2023-09-03T10:01:00Z" }
     ];
 
     useEffect(() => {
+        // Hämta och parsa användardata från localStorage
         const storedUser = localStorage.getItem("user");
         try {
             if (storedUser) {
@@ -30,6 +32,7 @@ function Chat() {
     }, []);
 
     useEffect(() => {
+        // Hämta meddelande funktion
         const fetchMessages = async () => {
             try {
                 const token = localStorage.getItem("token");
@@ -38,6 +41,7 @@ function Chat() {
                     return;
                 }
 
+                // Hämta meddelanden från API
                 const response = await axios.get(
                     "https://chatify-api.up.railway.app/messages",
                     {
@@ -47,20 +51,25 @@ function Chat() {
                     }
                 );
 
-                console.log("Hämtade meddelanden", response.data);
+                console.log("Hämtade meddelanden", response.data); //Loga förr att se hämtade meddelanden
 
                 if (response.data) {
+                    // blanda mockade meddeleanden med mina skickade meddelanden
                     const allMessages = [...response.data, ...mockMessages];
-                    const allMessagesWithTimestamps = allMessages.map(message => {
-                        if (!message.timestamp) {
-                            return { ...message, timestamp: new Date().toISOString() };
+
+
+                    const userMessages = allMessages.map(message => {
+                        if (!message.createdAt) {
+                            return { ...message, createdAt: new Date().toISOString() };
                         }
                         return message;
                     });
 
-                    allMessagesWithTimestamps.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
-                    setMessages(allMessagesWithTimestamps);
+                    userMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+
+                    setMessages(userMessages);
                 }
 
             } catch (error) {
@@ -72,10 +81,13 @@ function Chat() {
             }
         };
 
+
         fetchMessages();
     }, []);
 
+    //funktion för att skicka meddelanden
     const handleSendMessage = async () => {
+
         console.log("Text:", text);
         console.log("User:", user);
 
@@ -91,6 +103,7 @@ function Chat() {
                 return;
             }
 
+            // Skickar det nya meddelandet till API
             const response = await axios.post(
                 "https://chatify-api.up.railway.app/messages",
                 {
@@ -110,21 +123,21 @@ function Chat() {
                 const newMessage = {
                     ...response.data.latestMessage,
                     userId: user.id,
-                    timestamp: new Date().toISOString()
+                    createdAt: new Date().toISOString()
                 };
-
-
+                // Använt sanering med DOMPurify och dangerouslySetInnerHTML
                 const sanitizedMessage = {
                     ...newMessage,
-                    text: DOMPurify.sanitize(newMessage.text) // Sanera texten
+                    text: DOMPurify.sanitize(newMessage.text)
                 };
 
+                // Lägger till det nya meddelandet i listan av meddelanden
                 setMessages((prevMessages) => [
                     ...prevMessages,
                     sanitizedMessage
                 ]);
 
-                setText("");
+                setText(""); // Tömt textfältet efter meddelandet har skickats
             }
         } catch (error) {
             console.error("Kan ej skicka meddelande", error);
@@ -132,6 +145,37 @@ function Chat() {
                 console.error(error.response.data);
             }
             setError("Kan ej skicka meddelande");
+        }
+    };
+
+    // Hanterar radering av ett meddelande
+    const handleDeleteMessage = async (messageId) => {
+
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                console.error("Ingen giltig token hittad.");
+                return;
+            }
+
+            // Anropar API för att radera meddelandet
+            await axios.delete(
+                `https://chatify-api.up.railway.app/messages/${messageId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            // Uppdatera meddelandelistan efter radering
+            setMessages((prevMessages) =>
+                prevMessages.filter((message) => message.id !== messageId)
+            );
+
+        } catch (error) {
+            console.error("Kan ej radera meddelande", error);
+            setError("Kan ej radera meddelande");
         }
     };
 
@@ -162,9 +206,16 @@ function Chat() {
                             {messages.map((message, index) => (
                                 <div
                                     key={index}
-                                    className={`message ${message.userId === user?.id ? "self-end" : "self-start"}`}
+                                    className={`message-container ${message.userId === user?.id ? "self-end" : "self-start"}`}
                                 >
-                                    <p dangerouslySetInnerHTML={{ __html: message.text }} />
+                                    <div className="message">
+                                        <p dangerouslySetInnerHTML={{ __html: message.text }} />
+                                    </div>
+                                    {message.userId === user?.id && (
+                                        <div className="delete-button-container">
+                                            <button onClick={() => handleDeleteMessage(message.id)} className="delete-button">Radera</button>
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -173,12 +224,12 @@ function Chat() {
                     <div className="send-message-form">
                         <input
                             type="text"
-                            placeholder="Skriv ett meddelande..."
+                            placeholder="Skriv ett meddelande..." //Placeholder
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                         />
                         <button
-                            onClick={handleSendMessage}
+                            onClick={handleSendMessage} //knapp för skicka meddelande
                         >
                             Skicka
                         </button>

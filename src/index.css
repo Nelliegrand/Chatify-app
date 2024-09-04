@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .sidenav {
     height: 100%;
     width: 0;
@@ -14,13 +13,11 @@
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
-
 }
 
 .sidenav a:hover {
     color: #f1f1f1;
 }
-
 
 .sidenav .closebtn {
     position: absolute;
@@ -49,7 +46,6 @@ span {
     cursor: pointer;
 }
 
-
 #main {
     transition: margin-left .5s;
     padding: 16px;
@@ -64,29 +60,42 @@ span {
     font-size: 18px;
 }
 
+.message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.self-end .message-container {
+    align-items: flex-end;
+}
+
 .message {
     padding: 10px;
     border-radius: 8px;
-    max-width: 60%;
+    max-width: 100%;
     margin: 10px 0;
     font-size: 16px;
-}
-
-/* Positionering för meddelanden till höger och vänster */
-.self-end {
-    align-self: flex-end;
-    background-color: #2875b4;
-    /* Färg för användarens meddelanden */
-    color: white;
-    /* Textfärg för användarens meddelanden */
-}
-
-.self-start {
-    align-self: flex-start;
     background-color: #f34ae5;
-    /* Färg för mockade meddelanden */
     color: white;
-    /* Textfärg för mockade meddelanden */
+}
+
+.self-end .message {
+    background-color: #2875b4;
+}
+
+/*  */
+
+.delete-button {
+    font-size: 15px;
+    color: rgb(68, 68, 68);
+    cursor: pointer;
+
+}
+
+.delete-button:hover {
+    color: rgb(187, 27, 27);
 }
 
 .send-message-form {
@@ -104,8 +113,8 @@ span {
 
 .send-message-form button {
     max-width: 100%;
-    padding: 10px;
-    background-color: grey;
+    padding: 20px 20px;
+    background-color: rgb(196, 193, 193);
 }
 
 .logged-in-user {
@@ -114,7 +123,6 @@ span {
     justify-content: center;
     gap: 10px;
     font-size: 30px;
-
 }
 
 .avatar-pic {
