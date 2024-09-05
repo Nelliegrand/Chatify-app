@@ -210,16 +210,26 @@ function Chat() {
                                 {messages.map((message, index) => (
                                     <div
                                         key={index}
-                                        className={`message-container ${message.userId === user?.id ? "self-end" : "self-start"}`}
+                                        className={`message-wrapper ${message.userId === user?.id ? "self-end" : "self-start"}`}
                                     >
-                                        <div className="message">
-                                            <p dangerouslySetInnerHTML={{ __html: message.text }} />
-                                        </div>
-                                        {message.userId === user?.id && (
-                                            <div className="delete-button-container">
-                                                <button onClick={() => handleDeleteMessage(message.id)} className="delete-button">Radera</button>
+                                        {/* Avatar ligger ovanför meddelandet */}
+                                        <img
+                                            className="message-avatar"
+                                            src={message.userId === user?.id ? user.avatar : "https://i.pravatar.cc/200"}
+                                            alt="User Avatar"
+                                        />
+
+                                        <div className={`message-container`}>
+                                            <div className="message">
+                                                <p dangerouslySetInnerHTML={{ __html: message.text }} />
                                             </div>
-                                        )}
+
+                                            {message.userId === user?.id && (
+                                                <div className="delete-button-container">
+                                                    <button onClick={() => handleDeleteMessage(message.id)} className="delete-button">Radera</button>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 ))}
                             </div>

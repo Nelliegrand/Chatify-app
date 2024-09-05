@@ -25,7 +25,7 @@ function Login({ onLogin }) {  // Ta emot onLogin som en prop
 
                 if (token) {
                     localStorage.setItem('token', token);
-                    const decodedJwt = JSON.parse(atob(token.split('.')[1]));
+                    const decodedJwt = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
                     localStorage.setItem('user', JSON.stringify(decodedJwt));
 
                     console.log("User data saved to localStorage:", JSON.stringify(decodedJwt));
@@ -39,8 +39,11 @@ function Login({ onLogin }) {  // Ta emot onLogin som en prop
         } catch (error) {
             console.error("Login error:", error);
             setError("Felaktigt användarnamn eller lösenord");
+            console.log('Server response:', response.data);
+            console.log(token)
         }
     };
+
 
     return (
         <>

@@ -64,11 +64,13 @@ span {
     font-size: 18px;
 }
 
+
 .message-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    position: relative;
+    margin-bottom: 15px;
+
 }
 
 .self-end .message-container {
@@ -89,7 +91,30 @@ span {
     background-color: #2875b4;
 }
 
-/*  */
+.message-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    margin-bottom: 5px;
+    align-self: flex-start;
+    position: relative;
+
+}
+
+/* Wrapper för att hålla avatar och meddelande över och under varandra */
+.message-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+
+}
+
+
+.self-end .message-container {
+    align-items: flex-end;
+
+}
 
 .delete-button {
     font-size: 15px;
@@ -112,7 +137,7 @@ span {
 .send-message-form input {
     width: 95%;
     margin-right: 10px;
-    border: solid grey 1px;
+    border: solid rgb(187, 180, 180) 1px;
 }
 
 .send-message-form button {
@@ -176,7 +201,6 @@ span {
     flex-wrap: wrap;
     justify-content: center;
     margin: 20px
-        /* Centrerar avatarbilderna horisontellt */
 }
 
 .avatar-image {
@@ -192,57 +216,45 @@ span {
     border: 2px solid rgb(153, 5, 153);
 }
 
-/* Ny CSS för att centrera formulärfälten och knappen */
+
 .form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
-    /* Centrerar formcontainern och sätter en bredd på 50% av dess föräldraelement */
 }
 
 .input-field {
     display: flex;
     align-items: center;
-    /* Centrerar innehållet vertikalt */
-    border: solid 2px grey;
+    border: solid 2px rgb(167, 159, 159);
     opacity: 60%;
     height: 40px;
     border-radius: 8px;
     padding-left: 10px;
-    /* Lite utrymme till vänster för ikonen */
     width: 400px;
     margin-bottom: 15px;
 }
 
 .input-field svg {
     margin-right: 10px;
-    /* Utrymme mellan ikonen och texten */
     height: 20px;
-    /* Justera storleken på ikonen om nödvändigt */
     width: 20px;
 }
 
 .input-field input {
     border: none;
-    /* Ta bort inputfältets inbyggda kantlinje */
     width: 100%;
-    /* Fyll hela bredden av input-fältet */
     height: 100%;
-    /* Säkerställ att texten tar upp hela höjden av input-fältet */
     outline: none;
-    /* Ta bort den blå kanten när fältet är aktivt */
     font-size: 16px;
-    /* Justera storleken på texten */
     background: transparent;
-    /* Gör bakgrunden transparent så den följer föräldraelementet */
+
 }
 
 .btn-primary-register-login {
     width: 200px;
-    /* Sätter bredden på knappen till 65% av formcontainerns bredd */
     height: 70px;
-    /* Behåller maxbredden på 400px */
     text-align: center;
     background-color: rgb(180, 35, 161);
     color: white;
